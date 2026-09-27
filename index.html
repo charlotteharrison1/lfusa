@@ -17,17 +17,9 @@
     <h1>Labour Friends <br> of the USA</h1>
     <p class="hero-sub">Register your interest now</p>
 
-    <form
-      class="signup-form"
-      name="preregister"
-      method="POST"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      action="/thank-you.html"
-    >
-      <input type="hidden" name="form-name" value="preregister">
-      <p class="hidden-field">
-        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+    <form class="signup-form" id="preregister-form">
+      <p class="hidden-field" aria-hidden="true">
+        <label>Leave this field blank: <input type="text" name="company" id="company" tabindex="-1" autocomplete="off"></label>
       </p>
 
       <div class="form-row">
@@ -40,11 +32,55 @@
         <input type="email" id="email" name="email" placeholder="Email address" required>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-full">Register Interest</button>
+      <div class="form-row">
+        <label for="phone" class="sr-only">Phone number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
+      </div>
+
+      <div class="form-row form-consent">
+        <input type="checkbox" id="consent" name="consent" value="yes" required>
+        <label for="consent">I consent to Labour Friends of USA storing my details to keep me updated.</label>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full" id="submit-btn">Register Interest</button>
+      <p class="form-error" id="form-error" hidden>Something went wrong — please try again.</p>
     </form>
   </div>
 </main>
 
+<script>
+  // Paste the URL you get from deploying the Google Apps Script (ends in /exec)
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKDBFHG2n8DYJcx58S91uv5Vl0VtOVpLHoI3PwBOSRqVzMYFhmmKj1LLZxQUhBbjUpUQ/exec";
+
+  const form = document.getElementById('preregister-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const errorMsg = document.getElementById('form-error');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Honeypot: if this hidden field got filled in, it's a bot — drop silently
+    if (form.company.value) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Registering...';
+    errorMsg.hidden = true;
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new FormData(form)
+    })
+      .then(function () {
+        window.location.href = 'thank-you.html';
+      })
+      .catch(function () {
+        errorMsg.hidden = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Register Interest';
+      });
+  });
+</script>
 
 </body>
 </html>
