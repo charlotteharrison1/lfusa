@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labour Friends of USA</title>
+<meta name="description" content="Labour Friends of USA — register your interest now.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="hero">
+  <div class="container hero-inner">
+    <h1>Labour Friends <br> of the USA</h1>
+    <p class="hero-sub">Register your interest now</p>
+
+    <form
+      class="signup-form"
+      name="preregister"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/thank-you.html"
+    >
+      <input type="hidden" name="form-name" value="preregister">
+      <p class="hidden-field">
+        <label>Don't fill this out if you're human: <input name="bot-field"></label>
+      </p>
+
+      <div class="form-row">
+        <label for="name" class="sr-only">Full name</label>
+        <input type="text" id="name" name="name" placeholder="Full name" required>
+      </div>
+
+      <div class="form-row">
+        <label for="email" class="sr-only">Email address</label>
+        <input type="email" id="email" name="email" placeholder="Email address" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">Register Interest</button>
+    </form>
+  </div>
+</main>
+
+
+</body>
+</html>
