@@ -14,11 +14,31 @@
 <main class="hero">
   <div class="container hero-inner">
     <h1>Thank You</h1>
-    <p class="hero-sub">Thanks for signing up for our midterm watch party!</p>
-    <p>3 November · 9pm–2am<br>Central London location<br>£10 donation on the door</p>
+    <p class="hero-sub" id="thank-you-sub" hidden></p>
+    <p id="thank-you-details" hidden></p>
     <a href="/" class="btn btn-primary">Back to Home</a>
   </div>
 </main>
+
+<script>
+  // Shows an event-specific confirmation when arriving from the event page's
+  // signup redirect (?event=...&details=...). Falls back to a bare "Thank You"
+  // for general-interest signups, with nothing else to configure here.
+  const params = new URLSearchParams(window.location.search);
+  const event = params.get('event');
+  const details = params.get('details');
+
+  if (event) {
+    const subEl = document.getElementById('thank-you-sub');
+    subEl.textContent = 'Thanks for signing up for ' + event + '!';
+    subEl.hidden = false;
+  }
+  if (details) {
+    const detailsEl = document.getElementById('thank-you-details');
+    detailsEl.textContent = details;
+    detailsEl.hidden = false;
+  }
+</script>
 
 </body>
 </html>

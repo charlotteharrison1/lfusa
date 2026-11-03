@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Labour Friends of USA</title>
+<!-- Update this description whenever you change the event below — it controls link previews -->
 <meta name="description" content="Join Labour Friends of USA for a midterm watch party in Central London on 3 November, 9pm–2am. Sign up here; £10 donation on the door.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,13 +20,13 @@
 
     <form class="signup-form" id="preregister-form" aria-labelledby="event-title signup-title">
       <section class="event-details" aria-labelledby="event-title">
-        <h2 id="event-title">Midterm watch party</h2>
-        <p><strong>3 November · 9pm–2am</strong><br>Central London location</p>
-        <p class="event-donation">£10 donation on the door</p>
+        <h2 id="event-title"></h2>
+        <p><strong id="event-datetime"></strong><br><span id="event-location"></span></p>
+        <p class="event-donation" id="event-donation"></p>
       </section>
 
       <h2 id="signup-title">Your details</h2>
-      <input type="hidden" name="event" value="Midterm watch party — 3 November, 9pm–2am">
+      <input type="hidden" name="event" id="event-field" value="">
       <p class="hidden-field" aria-hidden="true">
         <label>Leave this field blank: <input type="text" name="company" id="company" tabindex="-1" autocomplete="off"></label>
       </p>
@@ -50,18 +51,44 @@
         <label for="consent">I consent to Labour Friends of USA storing my details to keep me updated.</label>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-full" id="submit-btn">Sign Up for the Event</button>
+      <button type="submit" class="btn btn-primary btn-full" id="submit-btn"></button>
       <p class="form-error" id="form-error" hidden>Something went wrong — please try again.</p>
     </form>
+
+    <p class="alt-link">Can't make it? <a href="register.html">Register your general interest instead</a></p>
   </div>
 </main>
 
 <script>
+  // ---- Edit this block for each new event. Nothing else in this file needs to change. ----
+  const EVENT = {
+    name: "Midterm watch party",
+    dateTime: "3 November · 9pm–2am",
+    location: "Central London location",
+    donation: "£10 donation on the door", // set to "" to hide this line
+    ctaText: "Sign Up for the Event"
+  };
+  // ------------------------------------------------------------------------------------------
+
+  document.getElementById('event-title').textContent = EVENT.name;
+  document.getElementById('event-datetime').textContent = EVENT.dateTime;
+  document.getElementById('event-location').textContent = EVENT.location;
+  document.getElementById('event-field').value = EVENT.name;
+
+  const donationEl = document.getElementById('event-donation');
+  if (EVENT.donation) {
+    donationEl.textContent = EVENT.donation;
+  } else {
+    donationEl.remove();
+  }
+
+  const submitBtn = document.getElementById('submit-btn');
+  submitBtn.textContent = EVENT.ctaText;
+
   // Paste the URL you get from deploying the Google Apps Script (ends in /exec)
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxKDBFHG2n8DYJcx58S91uv5Vl0VtOVpLHoI3PwBOSRqVzMYFhmmKj1LLZxQUhBbjUpUQ/exec";
 
   const form = document.getElementById('preregister-form');
-  const submitBtn = document.getElementById('submit-btn');
   const errorMsg = document.getElementById('form-error');
 
   form.addEventListener('submit', function (e) {
@@ -71,7 +98,7 @@
     if (form.company.value) return;
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Signing up...';
+    submitBtn.textContent = 'Submitting...';
     errorMsg.hidden = true;
 
     fetch(SCRIPT_URL, {
@@ -80,12 +107,13 @@
       body: new FormData(form)
     })
       .then(function () {
-        window.location.href = 'thank-you.html';
+        const details = [EVENT.dateTime, EVENT.location, EVENT.donation].filter(Boolean).join(' · ');
+        window.location.href = 'thank-you.html?event=' + encodeURIComponent(EVENT.name) + '&details=' + encodeURIComponent(details);
       })
       .catch(function () {
         errorMsg.hidden = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign Up for the Event';
+        submitBtn.textContent = EVENT.ctaText;
       });
   });
 </script>
