@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Labour Friends of USA</title>
-<meta name="description" content="Join Labour Friends of USA for a midterm watch party in Central London on 3 November, 9pm–2am. Sign up here; £10 donation on the door.">
+<meta name="description" content="Signups for the Labour Friends of USA midterm watch party are now closed — we're at capacity! Register your general interest for future events.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -17,15 +17,9 @@
     <h1>Labour Friends <br> of the USA</h1>
     <p class="hero-sub">We’re relaunching — join us!</p>
 
-    <form class="signup-form" id="preregister-form" aria-labelledby="event-title signup-title">
-      <section class="event-details" aria-labelledby="event-title">
-        <h2 id="event-title">Midterm watch party</h2>
-        <p><strong>3 November · 9pm–2am</strong><br>Central London location</p>
-        <p class="event-donation">£10 donation on the door</p>
-      </section>
+    <form class="signup-form" id="preregister-form">
+      <p class="closed-message">Signups for our Midterm Watch Party are now closed — we're at capacity!<br>Register your interest in Labour Friends of USA here.</p>
 
-      <h2 id="signup-title">Your details</h2>
-      <input type="hidden" name="event" value="Midterm watch party — 3 November, 9pm–2am">
       <p class="hidden-field" aria-hidden="true">
         <label>Leave this field blank: <input type="text" name="company" id="company" tabindex="-1" autocomplete="off"></label>
       </p>
@@ -50,7 +44,7 @@
         <label for="consent">I consent to Labour Friends of USA storing my details to keep me updated.</label>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-full" id="submit-btn">Sign Up for the Event</button>
+      <button type="submit" class="btn btn-primary btn-full" id="submit-btn">Register Interest</button>
       <p class="form-error" id="form-error" hidden>Something went wrong — please try again.</p>
     </form>
   </div>
@@ -71,7 +65,7 @@
     if (form.company.value) return;
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Signing up...';
+    submitBtn.textContent = 'Submitting...';
     errorMsg.hidden = true;
 
     fetch(SCRIPT_URL, {
@@ -85,7 +79,7 @@
       .catch(function () {
         errorMsg.hidden = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign Up for the Event';
+        submitBtn.textContent = 'Register Interest';
       });
   });
 </script>
