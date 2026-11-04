@@ -213,20 +213,6 @@ a {
   text-align: center;
 }
 
-.closed-message {
-  margin: 0 0 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #d5dae2;
-  font-size: 16px;
-  color: #333f4f;
-  text-align: center;
-}
-
-.closed-message strong {
-  font-size: inherit;
-  font-weight: 700;
-}
-
 /* Footer */
 .site-footer {
   padding: 20px 0;
